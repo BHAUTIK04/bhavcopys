@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <title>search</title>
+    <style>
+    input[type=text] {
+      width: 130px;
+      box-sizing: border-box;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+      background-color: white;
+      background-image: url('/static/images/searchicon.png');
+      background-size: 20px 20px;
+      background-position: 10px 10px;
+      background-repeat: no-repeat;
+      padding: 12px 20px 12px 40px;
+      -webkit-transition: width 0.4s ease-in-out;
+      transition: width 0.4s ease-in-out;
+    }
+
+    input[type=text]:focus {
+      width: 50%;
+    }
+    .bg-primary{
+      background-color: #174a5b !important;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="bg">
+      <nav class="nav nav-pills nav-justified">
+        <a class="nav-item nav-link" href="/">Home</a>
+        <a class="nav-item nav-link" href="/topten">Top 10 Performer</a>
+        <a class="nav-item nav-link active" href="/search">Search</a>
+        <!-- <a class="nav-item nav-link disabled" href="#">Contact Us</a> -->
+      </nav>
+      <div align="center" id="searchbox">
+           <input id = "searchfield" type="text" name="search" placeholder="Search.." >
+      </div>
+      <div id = "infotable" align = "center">
+        <div class="col-md-6 table-responsive-sm">
+          <h3 align="center">Detailed Information</h3>
+          <table class="table table-inverse" id="detailtable">
+            <thead>
+              <tr class="bg-info">
+                <!-- <th scope="col">#</th> -->
+                <th scope="col">Field Name</th>
+                <th scope="col">Field Value</th>
+              </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div id="errorfield" class="hidden" align="center">
+      </div>
+    </div>
+    <script src="/static/js/jquery-2.0.3.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        $('#searchfield').keyup(function (e) {
+           $(this).val($(this).val().toUpperCase());
+          if (e.keyCode === 13) {
+             var name = $("#searchfield").val().toUpperCase();
+             $.post("/search", {"scname": name})
+             .done(function(string) {
+               try{
+                  data = JSON.parse(string);
+                  var td = ""
+                  for(var key in data){
+                    if(key == "Gain"){
+                      if(data[key] >= 0){
+                        td+="<tr class='bg-success'><td>"+key.charAt(0).toUpperCase()+key.slice(1)+"/Loss"+"</td><td>"+data[key]+"</td></tr>"
+                      }else{
+                        td+="<tr class='bg-danger'><td>"+key.charAt(0).toUpperCase()+key.slice(1)+"/Loss"+"</td><td>"+data[key]+"</td></tr>"
+                      }
+                    }else{
+                      td+="<tr class='bg-primary'><td>"+key.charAt(0).toUpperCase()+key.slice(1)+"</td><td>"+data[key]+"</td></tr>"
+                    }
+                  }
+                  $("#errorfield").hide()
+                  $("#infotable").show();
+                  $("#detailtable tbody").html(td);
+
+              }catch(err){
+                $("#infotable").hide();
+                $("#errorfield").show()
+                $("#errorfield").html("<h1 class='text-danger col-md-9 error'>Data not available for entered name, <br/>Please enter valid Name.</h1>")
+              }
+              });
+          }
+        });
+      });
+
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>

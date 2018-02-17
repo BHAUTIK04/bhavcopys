@@ -1,0 +1,46 @@
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+.bg {
+    /* The image used */
+    background-image: url("/static/images/1.jpg");
+
+    /* Full height */
+    height: 100%;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #eaedf0;
+}
+
+
+body {
+  background-color: blue;
+}
+
+#infotable {
+  display: none;
+  margin-top: 2%;
+}
+
+#welcome {
+  color: yellowgreen;
+  margin-top: 15%;
+  background-color: white;
+  font-size: xx-large;
+  font-weight: bold;
+
+}
+
+#searchbox{
+  margin-top: 3%;
+}
+
+h1.error{
+  margin-top: 5%;
+  font-weight: bold;
+}
