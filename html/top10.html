@@ -42,9 +42,14 @@
           <tbody>
             % for row in data:
                 <tr class="bg-primary">
-                % for k,v in row.items():
-                    <td>${v}</td>
-                % endfor
+                  <td>${row["sc_code"]}</td>
+                  <td>${row["sc_name"]}</td>
+                  <td>${row["high"]}</td>
+                  <td>${row["low"]}</td>
+                  <td>${row["close"]}</td>
+                  <td>${row["open"]}</td>
+                  <td>${row["Gain"]}</td>
+
                 </tr>
             % endfor
           </tbody>
