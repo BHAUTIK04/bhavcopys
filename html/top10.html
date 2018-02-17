@@ -42,16 +42,9 @@
           <tbody>
             % for row in data:
                 <tr class="bg-primary">
-                  <td>${row["sc_code"]}</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                <!-- % for col in row.values():
-                    <td>${col}</td>
-                % endfor -->
+                % for k,v in row.items():
+                    <td class=k>${v}</td>
+                % endfor
                 </tr>
             % endfor
           </tbody>
