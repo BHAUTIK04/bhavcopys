@@ -32,7 +32,7 @@ try:
                     zip_file.extractall("/tmp/today")
                     zip_file.close()
                     try: 
-                        pda = pd.read_csv("/tmp/today/EQ160218.CSV", usecols=["SC_CODE","SC_NAME","OPEN","HIGH","LOW","CLOSE"])
+                        pda = pd.read_csv("/tmp/today/EQ"+d+".CSV", usecols=["SC_CODE","SC_NAME","OPEN","HIGH","LOW","CLOSE"])
                         pda["diff"] = pda["CLOSE"] - pda["OPEN"]
                         pda = pda.sort_values(by=["diff"], ascending=0)
                         lis_record = pda.values.tolist()
