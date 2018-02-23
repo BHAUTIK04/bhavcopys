@@ -20,6 +20,7 @@ try:
     if len(d) == 6 and isinstance(date, int):
         if redis_url:
             redis_conn = StrictRedis.from_url(redis_url)
+	    redis_conn.flushall()
             #r = StrictRedis.from_url("redis://h:p381ef8e02280716529f06c01a40c2ef52267dd19591f274b6d5112b871e25641@ec2-34-197-61-164.compute-1.amazonaws.com:46289/0")
             #==============================================================================
             print "Getting data"
